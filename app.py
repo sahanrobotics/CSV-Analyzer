@@ -11,7 +11,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
 
-
 class ModernCSVPlotterApp:
     def __init__(self, root):
         self.root = root
@@ -39,8 +38,7 @@ class ModernCSVPlotterApp:
         self.left_panel.grid(row=0, column=0, sticky="nsew")
         self.left_panel.grid_rowconfigure(1, weight=1)
 
-        self.logo_label = ctk.CTkLabel(self.left_panel, text="Data Plotter Pro",
-                                       font=ctk.CTkFont(size=24, weight="bold"))
+        self.logo_label = ctk.CTkLabel(self.left_panel, text="Data Plotter Pro", font=ctk.CTkFont(size=24, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         # Tabs
@@ -53,8 +51,7 @@ class ModernCSVPlotterApp:
         self.setup_data_tab()
         self.setup_settings_tab()
 
-        self.btn_plot = ctk.CTkButton(self.left_panel, text="Generate Plot", height=40, font=ctk.CTkFont(weight="bold"),
-                                      command=self.generate_plot)
+        self.btn_plot = ctk.CTkButton(self.left_panel, text="Generate Plot", height=40, font=ctk.CTkFont(weight="bold"), command=self.generate_plot)
         self.btn_plot.grid(row=2, column=0, padx=20, pady=(10, 5), sticky="ew")
 
         # --- INTERACTIVE TOOLS SECTION ---
@@ -66,8 +63,7 @@ class ModernCSVPlotterApp:
         self.switch_mark = ctk.CTkSwitch(self.tools_frame, text="Mark Points (Click on Graph)")
         self.switch_mark.pack(pady=5, padx=10, anchor="w")
 
-        self.btn_clear_marks = ctk.CTkButton(self.tools_frame, text="Clear Marks", fg_color="#E74C3C",
-                                             hover_color="#C0392B", command=self.clear_markers)
+        self.btn_clear_marks = ctk.CTkButton(self.tools_frame, text="Clear Marks", fg_color="#E74C3C", hover_color="#C0392B", command=self.clear_markers)
         self.btn_clear_marks.pack(pady=(5, 10), padx=10, fill="x")
 
         # --- Right Panel ---
@@ -77,21 +73,17 @@ class ModernCSVPlotterApp:
         self.create_plot_canvas()
 
     def setup_data_tab(self):
-        self.btn_load = ctk.CTkButton(self.tab_data, text="Load CSV File", fg_color="transparent", border_width=2,
-                                      text_color=("gray10", "#DCE4EE"), command=self.load_csv)
+        self.btn_load = ctk.CTkButton(self.tab_data, text="Load CSV File", fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), command=self.load_csv)
         self.btn_load.pack(fill="x", pady=(10, 5), padx=10)
 
-        self.lbl_file = ctk.CTkLabel(self.tab_data, text="No file selected", text_color="gray",
-                                     font=ctk.CTkFont(size=12))
+        self.lbl_file = ctk.CTkLabel(self.tab_data, text="No file selected", text_color="gray", font=ctk.CTkFont(size=12))
         self.lbl_file.pack(fill="x", pady=(0, 20), padx=10)
 
-        ctk.CTkLabel(self.tab_data, text="X-Axis Column:", anchor="w", font=ctk.CTkFont(weight="bold")).pack(fill="x",
-                                                                                                             padx=10)
+        ctk.CTkLabel(self.tab_data, text="X-Axis Column:", anchor="w", font=ctk.CTkFont(weight="bold")).pack(fill="x", padx=10)
         self.combo_x = ctk.CTkOptionMenu(self.tab_data, values=["Select File First"])
         self.combo_x.pack(fill="x", pady=(5, 20), padx=10)
 
-        ctk.CTkLabel(self.tab_data, text="Y-Axis Column(s):", anchor="w", font=ctk.CTkFont(weight="bold")).pack(
-            fill="x", padx=10)
+        ctk.CTkLabel(self.tab_data, text="Y-Axis Column(s):", anchor="w", font=ctk.CTkFont(weight="bold")).pack(fill="x", padx=10)
 
         self.scroll_y = ctk.CTkScrollableFrame(self.tab_data, height=200)
         self.scroll_y.pack(fill="both", expand=True, padx=10, pady=5)
@@ -106,8 +98,7 @@ class ModernCSVPlotterApp:
         self.mk_map = {"None": "", "Circle": "o", "Square": "s", "Triangle": "^", "Cross": "x"}
 
         ctk.CTkLabel(settings_scroll, text="Theme:", anchor="w").pack(fill="x", pady=(5, 0))
-        self.combo_theme = ctk.CTkOptionMenu(settings_scroll,
-                                             values=["default", "seaborn", "ggplot", "dark_background"])
+        self.combo_theme = ctk.CTkOptionMenu(settings_scroll, values=["default", "seaborn", "ggplot", "dark_background"])
         self.combo_theme.pack(fill="x", pady=(0, 10))
 
         ctk.CTkLabel(settings_scroll, text="Numeric Plot Type:", anchor="w").pack(fill="x")
@@ -222,8 +213,7 @@ class ModernCSVPlotterApp:
             self.X_labels = self.plot_data[x_col]
             self.numeric_y_cols = []
 
-            self.is_x_string = pd.api.types.is_string_dtype(self.X_labels) or pd.api.types.is_object_dtype(
-                self.X_labels)
+            self.is_x_string = pd.api.types.is_string_dtype(self.X_labels) or pd.api.types.is_object_dtype(self.X_labels)
             if self.is_x_string:
                 self.X_plot = np.arange(len(self.X_labels))
             else:
@@ -238,7 +228,7 @@ class ModernCSVPlotterApp:
                 is_y_numeric = pd.api.types.is_numeric_dtype(Y)
 
                 if is_y_numeric:
-                    self.numeric_y_cols.append(y_col)  # Remember this curve for snapping
+                    self.numeric_y_cols.append(y_col) # Remember this curve for snapping
 
                     line = None
                     if plot_type == "Line":
@@ -287,16 +277,13 @@ class ModernCSVPlotterApp:
                     if 0 <= idx < len(self.X_labels):
                         return str(self.X_labels.iloc[idx])
                     return ""
-
                 self.ax1.xaxis.set_major_formatter(FuncFormatter(format_fn))
 
             if self.switch_log_x.get() and not self.is_x_string: self.ax1.set_xscale('log')
             if self.switch_log_y.get(): self.ax1.set_yscale('log')
 
-            if self.switch_grid.get():
-                self.ax1.grid(True, linestyle='--', alpha=0.6)
-            else:
-                self.ax1.grid(False)
+            if self.switch_grid.get(): self.ax1.grid(True, linestyle='--', alpha=0.6)
+            else: self.ax1.grid(False)
 
             self.ax1.legend(legend_handles, legend_labels, loc='upper right', bbox_to_anchor=(1, 1), framealpha=0.8)
 
@@ -343,7 +330,7 @@ class ModernCSVPlotterApp:
 
         for col in self.numeric_y_cols:
             actual_y = self.plot_data[col].iloc[idx]
-            dist = abs(actual_y - click_y)  # Vertical distance
+            dist = abs(actual_y - click_y) # Vertical distance
 
             if dist < min_dist:
                 min_dist = dist
@@ -364,10 +351,10 @@ class ModernCSVPlotterApp:
         anno = self.ax1.annotate(
             display_text,
             xy=(actual_x, best_y),
-            xytext=(15, 15),  # Offset text slightly up and to the right
+            xytext=(15, 15), # Offset text slightly up and to the right
             textcoords='offset points',
             arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2", color="red"),
-            bbox=dict(boxstyle="round,pad=0.4", fc="#FFF9C4", ec="red", lw=1.5, alpha=0.9),  # Yellow box
+            bbox=dict(boxstyle="round,pad=0.4", fc="#FFF9C4", ec="red", lw=1.5, alpha=0.9), # Yellow box
             color="black",
             fontweight="bold",
             zorder=5
@@ -387,7 +374,6 @@ class ModernCSVPlotterApp:
                 pass
         self.annotations.clear()
         self.canvas.draw()
-
 
 if __name__ == "__main__":
     app = ctk.CTk()

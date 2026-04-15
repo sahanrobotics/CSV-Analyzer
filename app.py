@@ -379,3 +379,6 @@ if __name__ == "__main__":
     app = ctk.CTk()
     gui = ModernCSVPlotterApp(app)
     app.mainloop()
+
+
+
